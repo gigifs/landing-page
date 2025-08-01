@@ -14,6 +14,19 @@ const BotaoEstilizado = styled.button`
 
   ${(props) => {
     switch (props.variant) {
+
+      case 'CadastrarSecaoInicio':
+        return css`
+          background-color: #0A528A1A; 
+          color: #0A528A; 
+          border: 1px solid #0A528A;
+          height: 45px;
+
+          &:hover {
+          background-color: #0A528A; 
+          color: #F5FAFC; 
+          }
+        `;
       case 'Cadastrar':
         // Estilos para o botão secundário
         return css`
