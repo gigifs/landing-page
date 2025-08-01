@@ -8,7 +8,10 @@ const HeaderEstilizado = styled.header`
     align-items: center;
     padding: 8px 40px;
     background-color: #F5FAFC;
-    box-shadow: 0 2px 4px #7c225649;
+    box-shadow: 0 3px 6px rgba(124, 34, 86, 0.45);
+    position: sticky;
+    top: 0; 
+    z-index: 10;
 `;
 
 const NavBotoes = styled.nav`
@@ -54,9 +57,9 @@ function Header(){
             <NavLinks>
                 <ListaLinks>
                     <li><LinkEstilizado href="#">Início</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#">Como Funciona</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#">Sobre nós</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#">Contatos</LinkEstilizado></li>
+                    <li><LinkEstilizado href="#como-funciona">Como Funciona</LinkEstilizado></li>
+                    <li><LinkEstilizado href="#sobre-nos">Sobre nós</LinkEstilizado></li>
+                    <li><LinkEstilizado href="#contatos">Contatos</LinkEstilizado></li>
                 </ListaLinks>
             </NavLinks>
             <NavBotoes>
