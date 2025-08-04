@@ -11,9 +11,10 @@ const BotaoEstilizado = styled.button`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border: 2px solid transparent;
+  font-family: inherit;
 
   ${(props) => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case 'ComeceAgora':
         return css`
           font-size: 30px;
@@ -51,6 +52,19 @@ const BotaoEstilizado = styled.button`
 
           }
         `;
+      case 'Modal':
+        return css`
+          background-color: #7C2256; 
+          color: #F5FAFC;
+          border-radius: 10px;
+          padding: 8px 50px;
+          font-size: 18px;
+          font-weight: 400;
+
+          &:hover {
+          background-color: #661745ff;
+          }
+        `;
       case 'Entrar':
       default:
         // Estilos para o botão primário (e o padrão, caso nenhuma variant seja passada)
@@ -65,10 +79,15 @@ const BotaoEstilizado = styled.button`
   }}
 `;
 
-// O componente Botao agora precisa passar as props para o BotaoEstilizado
-function Botao(props) {
-  // Passamos todas as props (...props) para que o styled.button tenha acesso a 'variant'
-  return <BotaoEstilizado {...props}>{props.children}</BotaoEstilizado>;
+// A função tem as seguintes propriedas para que possa ser estilizada, aceitar conteúdo
+// e o "...outrasProps" serve para manipuladores e atributos HTML
+function Botao({ variant, children, ...outrasProps }) {
+  // Aqui no caso ela vai coletar o manipulador/evento 'onClick'
+  return (
+    <BotaoEstilizado $variant={variant} {...outrasProps}>
+      {children}
+    </BotaoEstilizado>
+  );
 }
 
 export default Botao;

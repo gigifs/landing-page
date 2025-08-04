@@ -49,25 +49,28 @@ const LinkEstilizado = styled.a`
     }
 `;
 
-function Header(){
+// O componente abaixo está recendo duas propriedades
+function Header({ onLoginClick, onSignupClick }){
     return(
         <HeaderEstilizado>
             <Logo src={logoNexo} alt="Logo da empresa Nexo" />
 
             <NavLinks>
                 <ListaLinks>
-                    <li><LinkEstilizado href="#">Início</LinkEstilizado></li>
+                    <li><LinkEstilizado href="#inicio">Início</LinkEstilizado></li>
                     <li><LinkEstilizado href="#como-funciona">Como Funciona</LinkEstilizado></li>
                     <li><LinkEstilizado href="#sobre-nos">Sobre nós</LinkEstilizado></li>
                     <li><LinkEstilizado href="#contatos">Contatos</LinkEstilizado></li>
                 </ListaLinks>
             </NavLinks>
             <NavBotoes>
-                <Botao variant="Entrar">Entrar</Botao>
-                <Botao variant="Cadastrar">Cadastre-se</Botao>
+                {/* O evento de clique é conectado diretamente com
+                    as funções que o header recebeu como propriedade */}
+                <Botao variant="Entrar" onClick={onLoginClick}>Entrar</Botao>
+                <Botao variant="Cadastrar" onClick={onSignupClick}>Cadastre-se</Botao>
             </NavBotoes>
         </HeaderEstilizado>
-    )
+    );
 }
 
 export default Header;

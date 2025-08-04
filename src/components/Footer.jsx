@@ -84,7 +84,7 @@ const TextoCopyright = styled.p`
 
 function Footer() {
     return (
-        <FooterContainer>
+        <FooterContainer id='contatos'>
             <FooterConteudo>
                 <FooterColuna>
                     <Logo src={logoQuadrada} alt='Logo Nexo'/>

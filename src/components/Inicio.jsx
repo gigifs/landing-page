@@ -82,7 +82,7 @@ const LogoInicio = styled.img`
 
 function Inicio() {
     return(
-        <InicioEstilizado>
+        <InicioEstilizado id="inicio">
             <DetalhesBackground src={detalhes} alt="Detalhes de fundo" />
 
             <ConteudoEsquerdo>

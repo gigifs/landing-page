@@ -1,0 +1,252 @@
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Botao from './Botao.jsx';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase.js';
+
+const FormularioContainer = styled.form`
+    display: flex;
+    flex-direction: column;
+    padding: 0 70px 0 70px;
+`;
+
+const Titulo = styled.h2`
+    font-size: 30px;
+    font-weight: 700;
+    margin: 30px 0 20px 0;
+    text-align: center;
+    color: #000000;
+`;
+
+const SubTitulo = styled.h3`
+    font-size: 18px;
+    font-weight: 300;
+    color: #000000;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+`;
+
+const ContainerNomes = styled.div`
+    display: flex;
+    gap: 20px;
+`;
+
+const InputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex: 1;
+`;
+
+const Label = styled.label`
+    font-size: 16px;
+    font-weight: 300;
+    color: #140202ff;
+    margin-bottom: 2px;
+`;
+
+const Input = styled.input`
+    background-color: #F5FAFC;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+    border: 1px solid #00000060;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder {
+        color: #999999;
+        opacity: 1;
+    }
+
+    &:focus {
+        border-color: #5B82E9; 
+        box-shadow: 0 0 0 3px #5b81e948;
+    }
+`;
+
+const TextoTermos = styled.p`
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+
+    a {
+        color: #7C2256; /* Cor de destaque */
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin: auto; 
+`;
+
+const JaTemConta = styled.p`
+    text-align: center;
+    font-size: 16px;
+    color: #030214;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: 300;
+
+    a {
+        color: #7C2256;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
+function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
+
+    const [nome, setNome] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
+    const [email, setEmail] = useState(initialEmail || '');
+    const [senha, setSenha] = useState('');
+    const [confirmaSenha, setConfirmaSenha] = useState('');
+    const [erroSenha, setErroSenha] = useState('');
+
+    useEffect(() => {
+        setEmail(initialEmail || '');
+    }, [initialEmail]);
+
+    const handleSubmit = async (evento) => {
+        evento.preventDefault();
+        setErroSenha(''); // Limpa erros antigos antes de tentar de novo
+
+        // --- Sua validação de senha continua aqui ---
+        if (senha !== confirmaSenha) {
+            setErroSenha("As senhas não coincidem!");
+            return;
+        }
+
+        // --- A MÁGICA DO FIREBASE ACONTECE AQUI ---
+        try {
+            // 1. Usamos 'await' para esperar a resposta do Firebase
+            const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+
+            // 2. Se o cadastro deu certo:
+            const user = userCredential.user;
+            console.log("Usuário cadastrado com sucesso!", user);
+            alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
+
+            // No futuro, aqui poderíamos fechar o modal e levar o usuário para uma página de perfil
+
+        } catch (error) {
+            // 3. Se o Firebase retornou um erro:
+            console.error("Erro ao cadastrar no Firebase:", error.code, error.message);
+
+            // Traduzindo os erros mais comuns do Firebase para o usuário
+            if (error.code === 'auth/email-already-in-use') {
+                setErroSenha('Este e-mail já está em uso por outra conta.');
+            } else if (error.code === 'auth/weak-password') {
+                setErroSenha('A senha é muito fraca. Use pelo menos 6 caracteres.');
+            } else if (error.code === 'auth/invalid-email') {
+                setErroSenha('O formato do e-mail é inválido.');
+            } else {
+                setErroSenha('Ocorreu um erro ao criar a conta. Tente novamente.');
+            }
+        }
+        console.log({ nome, sobrenome, email, senha });
+    };
+
+    return (
+        <FormularioContainer onSubmit={handleSubmit}>
+            <Titulo>Crie sua conta</Titulo>
+            <SubTitulo>Para prosseguir com o cadastro, certifique-se de preencher todos os campos indicados.</SubTitulo>
+
+            <ContainerNomes>
+                <InputGroup>
+                    <Label htmlFor="signup-nome">Nome:</Label>
+                    <Input
+                        type="text"
+                        id="signup-nome"
+                        placeholder="Nome"
+                        required
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                    />
+                </InputGroup>
+                <InputGroup>
+                    <Label htmlFor="signup-sobrenome">Sobrenome:</Label>
+                    <Input
+                        type="text"
+                        id="signup-sobrenome"
+                        placeholder="Sobrenome"
+                        required
+                        value={sobrenome}
+                        onChange={(e) => setSobrenome(e.target.value)}
+                    />
+                </InputGroup>
+            </ContainerNomes>
+
+            <InputGroup style={{ flex: 'none' }}> {/* Evita que este InputGroup tente se esticar */}
+                <Label htmlFor="signup-email">E-mail</Label>
+                <Input
+                    type="email"
+                    id="signup-email"
+                    placeholder="seuemail@exemplo.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+            </InputGroup>
+
+            <InputGroup style={{ flex: 'none' }}>
+                <Label htmlFor="signup-senha">Senha</Label>
+                <Input
+                    type="password"
+                    id="signup-senha"
+                    placeholder="Digite a senha"
+                    required
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                />
+            </InputGroup>
+
+            <InputGroup style={{ flex: 'none' }}>
+                <Label htmlFor="signup-confirma-senha">Confirmar Senha</Label>
+                <Input
+                    type="password"
+                    id="signup-confirma-senha"
+                    placeholder="Digite a senha novamente"
+                    required
+                    value={confirmaSenha}
+                    onChange={(e) => setConfirmaSenha(e.target.value)}
+                />
+            </InputGroup>
+
+            <TextoTermos>
+                Ao preencher o formulário acima você concorda com os nossos <br />
+                <a href="#">Termos de uso</a> e nossa <a href="#">Política de Privacidade</a>
+            </TextoTermos>
+
+            <ButtonContainer>
+                <Botao $variant="Modal" type="submit">Cadastrar</Botao>
+            </ButtonContainer>
+
+            <JaTemConta>
+                Já tem uma conta? <a onClick={onSwitchToLogin}>Entre</a>
+            </JaTemConta>
+        </FormularioContainer>
+    );
+}
+
+export default FormularioCadastro;
