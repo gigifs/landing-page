@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Botao from './Botao.jsx';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase.js';
 
 const FormularioContainer = styled.form`
   display: flex;
@@ -122,16 +124,50 @@ const NaoTemConta = styled.p`
   }
 `;
 
+const MensagemErro = styled.p`
+  color: #D32F2F; /* vermelho para erros */
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0; 
+`;
+
 function FormularioLogin({ onSwitchToSignup }) {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [lembrar, setLembrar] = useState(false);
+  const [erroLogin, setErroLogin] = useState(''); // estado para erros de login
 
-  const handleSubmit = (evento) => {
+  const handleSubmit = async (evento) => {
     evento.preventDefault(); // Impede que a página recarregue ao enviar
-    // Nosso teste final antes do Firebase:
-    console.log('Dados do Login para enviar:', { email, senha, lembrar });
+    setErroLogin(''); // limpa erros antigos
+
+    try {
+      //tenta fazer o login
+      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+
+      await user.reload();
+
+      //verificação importante: o email foi verificado?
+      if (user.emailVerified) {
+        //se sim, login bem sucedido
+        alert(`Bem-vindo(a) de volta!`);
+        //no futuro, redirecionaremos para a pagina principal
+      } else {
+        //se nao, impede o login e avisa
+        setErroLogin("Você precisa verificar seu e-mail antes de fazer o login.");
+        // botao de reenviar no futuro???
+      }
+    } catch (error) {
+      //erros mais comuns traduzidos
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        setErroLogin("E-mail ou senha inválidos.");
+      } else {
+        setErroLogin("Ocorreu um erro ao tentar fazer o login.");
+      }
+    }
   };
 
   return (
@@ -172,6 +208,8 @@ function FormularioLogin({ onSwitchToSignup }) {
         </CheckboxGroup>
         <LinkEsqueciSenha href="#">Esqueceu a senha?</LinkEsqueciSenha>
       </OptionsContainer>
+
+      {erroLogin && <MensagemErro>{erroLogin}</MensagemErro>}
 
       <ButtonContainer>
         <Botao $variant="Modal" type="submit">Entrar</Botao>

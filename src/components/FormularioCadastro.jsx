@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Botao from './Botao.jsx';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from '../firebase.js';
 
 const FormularioContainer = styled.form`
@@ -115,11 +115,11 @@ const JaTemConta = styled.p`
 `;
 
 const MensagemErro = styled.p`
-  color: #D32F2F; /* Um tom de vermelho para erros */
+  color: #D32F2F; /* vermelho para erros */
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  margin-top: 0; /* Ajusta o posicionamento */
+  margin-top: 0; 
 `;
 
 //initialEmail é para permitir que o email seja previamente preenchido na tela inicial
@@ -144,6 +144,13 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
         evento.preventDefault(); //impede que o navegador recarregue a pagina
         setErroSenha(''); // Limpa erros antigos antes de tentar de novo
 
+        //verificação dominio do email
+        const dominioPermitido = "@cs.unicid.edu.br";
+        if(!email.endsWith(dominioPermitido)){
+            setErroSenha(`Cadastro permitido apenas para e-mails institucionais.`);
+            return;
+        }
+
         //validação de senha simples, pode aumentar
         if (senha !== confirmaSenha) {
             setErroSenha("As senhas não coincidem!");
@@ -157,6 +164,7 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
 
             //Se o cadastro deu certo
             const user = userCredential.user;
+            await sendEmailVerification(user);
             alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
 
             //no futuro, aqui vamos levar o usuario para a tela aguardando confirmação de email
