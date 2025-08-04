@@ -11,7 +11,7 @@ const HeaderEstilizado = styled.header`
     box-shadow: 0 3px 6px rgba(124, 34, 86, 0.45);
     position: sticky;
     top: 0; 
-    z-index: 10;
+    z-index: 30;
 `;
 
 const NavBotoes = styled.nav`

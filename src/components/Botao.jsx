@@ -32,12 +32,13 @@ const BotaoEstilizado = styled.button`
         return css`
           background-color: #0A528A1A; 
           color: #0A528A; 
-          border: 1px solid #0A528A;
-          height: 45px;
+          border: 2px solid #0A528A;
+          height: 60px;
+          padding: 8px 20px;
 
           &:hover {
-          background-color: #0A528A; 
-          color: #F5FAFC;
+            background-color: #0A528A; 
+            color: #F5FAFC;
           }
         `;
       case 'Cadastrar':
