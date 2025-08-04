@@ -13,6 +13,7 @@ function App() {
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const [initialEmail, setInitialEmail] = useState('');
 
   const switchToSignup = () => {
     setLoginModalOpen(false);
@@ -24,27 +25,34 @@ function App() {
     setLoginModalOpen(true);
   };
 
+  const handleHeroSignup = (email) => {
+    setInitialEmail(email); // Guarda o email
+    setSignupModalOpen(true); // Abre o modal de cadastro
+  };
+
   return (
     <div>
       <Header
         onLoginClick={() => setLoginModalOpen(true)}
-        onSignupClick={() => setSignupModalOpen(true)}
+        onSignupClick={() => {
+          setInitialEmail('');
+          setSignupModalOpen(true);
+        }}
       />
-      <Inicio/>
-      <ComoFunciona/>
-      <CallToAction/>
-      <SobreNos/>
-      <Footer/>
+      <Inicio onCadastrarClick={handleHeroSignup} />
+      <ComoFunciona />
+      <CallToAction />
+      <SobreNos />
+      <Footer />
 
-      {/* 👇 O MODAL ESTAVA FALTANDO. PRECISAMOS ADICIONÁ-LO DE VOLTA AQUI 👇 */}
       <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} size="small">
         <FormularioLogin onSwitchToSignup={switchToSignup} />
       </Modal>
 
       <Modal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} size="large">
-        <FormularioCadastro onSwitchToLogin={switchToLogin} />
+        <FormularioCadastro onSwitchToLogin={switchToLogin} initialEmail={initialEmail} />
       </Modal>
-    
+
     </div>
   )
 }

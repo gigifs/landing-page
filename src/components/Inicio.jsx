@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Botao from "./Botao";
 import logoQuadrada from '../assets/logoQuadrada.svg';
@@ -80,7 +81,15 @@ const LogoInicio = styled.img`
     height: auto;
 `;
 
-function Inicio() {
+function Inicio({ onCadastrarClick }) {
+
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = (evento) => {
+        evento.preventDefault();
+        onCadastrarClick(email);
+    }
+
     return (
         <InicioContainer id='inicio'>
             <ConteudoEsquerdo>
@@ -88,8 +97,13 @@ function Inicio() {
                     Crie projetos incríveis com o <strong>NEXO</strong>
                 </Titulo>
                 <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
-                <FormContainer>
-                    <InputEmail type='email' placeholder='E-mail' />
+                <FormContainer onSubmit={handleSubmit}>
+                    <InputEmail
+                        type='email'
+                        placeholder='E-mail'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                     <Botao variant="CadastrarSecaoInicio" type='submit'>Cadastrar</Botao>
                 </FormContainer>
             </ConteudoEsquerdo>

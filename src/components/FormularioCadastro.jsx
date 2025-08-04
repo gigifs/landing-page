@@ -114,8 +114,18 @@ const JaTemConta = styled.p`
     }
 `;
 
+const MensagemErro = styled.p`
+  color: #D32F2F; /* Um tom de vermelho para erros */
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0; /* Ajusta o posicionamento */
+`;
+
+//initialEmail é para permitir que o email seja previamente preenchido na tela inicial
 function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
 
+    // o hook useState é para o react redesenhar na tela sempre que a variavel mudar
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
     const [email, setEmail] = useState(initialEmail || '');
@@ -123,37 +133,39 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [erroSenha, setErroSenha] = useState('');
 
+    //aqui é a logica para receber o email de fora e exibir
     useEffect(() => {
         setEmail(initialEmail || '');
     }, [initialEmail]);
 
+    //função mais importante, pra quando o usuario enviar formulario
+    //async significa que a funçao vai fazer operaçõoes que podem demorar
     const handleSubmit = async (evento) => {
-        evento.preventDefault();
+        evento.preventDefault(); //impede que o navegador recarregue a pagina
         setErroSenha(''); // Limpa erros antigos antes de tentar de novo
 
-        // --- Sua validação de senha continua aqui ---
+        //validação de senha simples, pode aumentar
         if (senha !== confirmaSenha) {
             setErroSenha("As senhas não coincidem!");
             return;
         }
 
-        // --- A MÁGICA DO FIREBASE ACONTECE AQUI ---
+        //firebase a partir daqui
         try {
-            // 1. Usamos 'await' para esperar a resposta do Firebase
+            //usar o await para esperar a resposta do Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
 
-            // 2. Se o cadastro deu certo:
+            //Se o cadastro deu certo
             const user = userCredential.user;
-            console.log("Usuário cadastrado com sucesso!", user);
             alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
 
-            // No futuro, aqui poderíamos fechar o modal e levar o usuário para uma página de perfil
+            //no futuro, aqui vamos levar o usuario para a tela aguardando confirmação de email
 
         } catch (error) {
-            // 3. Se o Firebase retornou um erro:
+            //Se o Firebase retornou um erro
             console.error("Erro ao cadastrar no Firebase:", error.code, error.message);
 
-            // Traduzindo os erros mais comuns do Firebase para o usuário
+            //traduzindo os erros mais comuns do Firebase para o usuário
             if (error.code === 'auth/email-already-in-use') {
                 setErroSenha('Este e-mail já está em uso por outra conta.');
             } else if (error.code === 'auth/weak-password') {
@@ -164,7 +176,6 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
                 setErroSenha('Ocorreu um erro ao criar a conta. Tente novamente.');
             }
         }
-        console.log({ nome, sobrenome, email, senha });
     };
 
     return (
@@ -232,6 +243,8 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
                     onChange={(e) => setConfirmaSenha(e.target.value)}
                 />
             </InputGroup>
+
+            {erroSenha && <MensagemErro>{erroSenha}</MensagemErro>}
 
             <TextoTermos>
                 Ao preencher o formulário acima você concorda com os nossos <br />
