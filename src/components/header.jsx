@@ -56,7 +56,7 @@ const LinkEstilizado = styled.a`
 // O componente abaixo está recendo duas propriedades
 function Header({ onLoginClick, onSignupClick }){
     // 2. USAMOS NOSSO "CÉREBRO" PARA SABER QUEM É O USUÁRIO ATUAL
-    const { currentUser } = useAuth();
+    const { currentUser, userData } = useAuth();
 
     // 3. FUNÇÃO PARA FAZER LOGOUT
     const handleLogout = async () => {
@@ -81,10 +81,12 @@ function Header({ onLoginClick, onSignupClick }){
                 </ListaLinks>
             </NavLinks>
             <NavBotoes>
-                { currentUser ? (
+                { currentUser && currentUser.emailVerified ? (
                     // Se EXISTE um usuário logado, mostra o e-mail e o botão de Sair
                     <>
-                        <span style={{ alignSelf: 'center', fontWeight: '500' }}>{currentUser.email}</span>
+                        <span style={{ alignSelf: 'center', fontWeight: '500' }}>
+                            Olá, {userData ? userData.nome : currentUser.email}
+                            </span>
                         <Botao variant="Cadastrar" onClick={handleLogout}>Sair</Botao>
                     </>
                 ) : (

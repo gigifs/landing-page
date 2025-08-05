@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Botao from './Botao.jsx';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { auth } from '../firebase.js';
+import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
+import { auth, db } from '../firebase.js';
+import { doc, setDoc } from 'firebase/firestore';
 
 const FormularioContainer = styled.form`
     display: flex;
@@ -165,11 +166,22 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail, onSuccess  }) {
             //Se o cadastro deu certo
             const user = userCredential.user;
 
+            // 👇 2. A NOVA PARTE PARA SALVAR NO BANCO DE DADOS
+            // Criamos uma referência para um novo "documento" na "coleção" 'users'
+            // O nome/ID do documento será o ID único do usuário (user.uid)
+            await setDoc(doc(db, "users", user.uid), {
+              nome: nome,
+              sobrenome: sobrenome,
+              email: user.email // Salva o email também no perfil para facilitar
+            });
+
             const actionCodeSettings = {
                 url: 'http://localhost:5173', // URL para redirecionar após verificação
             };
 
             await sendEmailVerification(user, actionCodeSettings);
+
+            await signOut(auth);
             alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
             onSuccess();
             //no futuro, aqui vamos levar o usuario para a tela aguardando confirmação de email
