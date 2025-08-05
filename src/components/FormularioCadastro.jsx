@@ -123,7 +123,7 @@ const MensagemErro = styled.p`
 `;
 
 //initialEmail é para permitir que o email seja previamente preenchido na tela inicial
-function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
+function FormularioCadastro({ onSwitchToLogin, initialEmail, onSuccess  }) {
 
     // o hook useState é para o react redesenhar na tela sempre que a variavel mudar
     const [nome, setNome] = useState('');
@@ -131,7 +131,7 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
     const [email, setEmail] = useState(initialEmail || '');
     const [senha, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
-    const [erroSenha, setErroSenha] = useState('');
+    const [erro, setErro] = useState('');
 
     //aqui é a logica para receber o email de fora e exibir
     useEffect(() => {
@@ -142,18 +142,18 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
     //async significa que a funçao vai fazer operaçõoes que podem demorar
     const handleSubmit = async (evento) => {
         evento.preventDefault(); //impede que o navegador recarregue a pagina
-        setErroSenha(''); // Limpa erros antigos antes de tentar de novo
+        setErro(''); // Limpa erros antigos antes de tentar de novo
 
         //verificação dominio do email
         const dominioPermitido = "@cs.unicid.edu.br";
         if(!email.endsWith(dominioPermitido)){
-            setErroSenha(`Cadastro permitido apenas para e-mails institucionais.`);
+            setErro(`Cadastro permitido apenas para e-mails institucionais.`);
             return;
         }
 
         //validação de senha simples, pode aumentar
         if (senha !== confirmaSenha) {
-            setErroSenha("As senhas não coincidem!");
+            setErro("As senhas não coincidem!");
             return;
         }
 
@@ -164,9 +164,14 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
 
             //Se o cadastro deu certo
             const user = userCredential.user;
-            await sendEmailVerification(user);
-            alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
 
+            const actionCodeSettings = {
+                url: 'http://localhost:5173', // URL para redirecionar após verificação
+            };
+
+            await sendEmailVerification(user, actionCodeSettings);
+            alert(`Bem-vindo(a), ${nome}! Sua conta foi criada com sucesso.`);
+            onSuccess();
             //no futuro, aqui vamos levar o usuario para a tela aguardando confirmação de email
 
         } catch (error) {
@@ -175,13 +180,13 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
 
             //traduzindo os erros mais comuns do Firebase para o usuário
             if (error.code === 'auth/email-already-in-use') {
-                setErroSenha('Este e-mail já está em uso por outra conta.');
+                setErro('Este e-mail já está em uso por outra conta.');
             } else if (error.code === 'auth/weak-password') {
-                setErroSenha('A senha é muito fraca. Use pelo menos 6 caracteres.');
+                setErro('A senha é muito fraca. Use pelo menos 6 caracteres.');
             } else if (error.code === 'auth/invalid-email') {
-                setErroSenha('O formato do e-mail é inválido.');
+                setErro('O formato do e-mail é inválido.');
             } else {
-                setErroSenha('Ocorreu um erro ao criar a conta. Tente novamente.');
+                setErro('Ocorreu um erro ao criar a conta. Tente novamente.');
             }
         }
     };
@@ -252,7 +257,7 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail }) {
                 />
             </InputGroup>
 
-            {erroSenha && <MensagemErro>{erroSenha}</MensagemErro>}
+            {erro && <MensagemErro>{erro}</MensagemErro>}
 
             <TextoTermos>
                 Ao preencher o formulário acima você concorda com os nossos <br />

@@ -132,7 +132,7 @@ const MensagemErro = styled.p`
   margin-top: 0; 
 `;
 
-function FormularioLogin({ onSwitchToSignup }) {
+function FormularioLogin({ onSwitchToSignup, onSuccess  }) {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -154,6 +154,7 @@ function FormularioLogin({ onSwitchToSignup }) {
       if (user.emailVerified) {
         //se sim, login bem sucedido
         alert(`Bem-vindo(a) de volta!`);
+        onSuccess();
         //no futuro, redirecionaremos para a pagina principal
       } else {
         //se nao, impede o login e avisa

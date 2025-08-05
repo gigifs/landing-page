@@ -113,13 +113,13 @@ function Footer() {
 
                 <FooterColuna>
                     <TituloColuna>Redes Sociais</TituloColuna>
-                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
                         <FiLinkedin size={20}/> LinkedIn
                     </RedesSocias>
-                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
                         <FiInstagram size={20}/> Instagram
                     </RedesSocias>
-                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
                         <FiFacebook size={20}/> Facebook
                     </RedesSocias>
                 </FooterColuna>

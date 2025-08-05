@@ -46,11 +46,18 @@ function App() {
       <Footer />
 
       <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} size="small">
-        <FormularioLogin onSwitchToSignup={switchToSignup} />
+        <FormularioLogin
+          onSwitchToSignup={switchToSignup}
+          onSuccess={() => setLoginModalOpen(false)}
+        />
       </Modal>
 
       <Modal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} size="large">
-        <FormularioCadastro onSwitchToLogin={switchToLogin} initialEmail={initialEmail} />
+        <FormularioCadastro
+          onSwitchToLogin={switchToLogin}
+          initialEmail={initialEmail}
+          onSuccess={() => setSignupModalOpen(false)}
+        />
       </Modal>
 
     </div>
