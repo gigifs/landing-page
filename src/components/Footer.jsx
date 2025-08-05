@@ -61,7 +61,7 @@ const RedesSocias = styled.a`
     align-items: center;
     gap: 10px;
     color: #adb5bd;
-    text-decorations: none;
+    text-decoration: none;
     font-size: 16px;
     transition: color 0.2s;
 

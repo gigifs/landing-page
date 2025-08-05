@@ -265,7 +265,7 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail, onSuccess  }) {
             </TextoTermos>
 
             <ButtonContainer>
-                <Botao $variant="Modal" type="submit">Cadastrar</Botao>
+                <Botao variant="Modal" type="submit">Cadastrar</Botao>
             </ButtonContainer>
 
             <JaTemConta>

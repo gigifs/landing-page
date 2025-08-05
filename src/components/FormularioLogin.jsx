@@ -213,7 +213,7 @@ function FormularioLogin({ onSwitchToSignup, onSuccess  }) {
       {erroLogin && <MensagemErro>{erroLogin}</MensagemErro>}
 
       <ButtonContainer>
-        <Botao $variant="Modal" type="submit">Entrar</Botao>
+        <Botao variant="Modal" type="submit">Entrar</Botao>
       </ButtonContainer>
 
       <NaoTemConta>
