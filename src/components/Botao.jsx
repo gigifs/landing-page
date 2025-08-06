@@ -32,7 +32,8 @@ const BotaoEstilizado = styled.button`
           background-color: #0A528A1A; 
           color: #0A528A; 
           border: 1px solid #0A528A;
-          height: 45px;
+          height: 60px;
+          font-size: 24px;
 
           &:hover {
           background-color: #0A528A; 

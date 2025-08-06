@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components';
 import logoQuadrada from '../assets/logoQuadrada.svg';
-import { FiLinkedin } from "react-icons/fi";
-import { FiInstagram } from "react-icons/fi";
-import { FiFacebook } from "react-icons/fi";
+import { FiLinkedin, FiInstagram, FiFacebook } from "react-icons/fi";
 
 const FooterContainer = styled.footer`
     background-color: #383838;
     color: #f8f9fa;
-    padding: 40px 100px 10px 100px;
+    /*padding: 40px 100px 10px 100px;*/
+    padding: 40px 20px 20px 20px;
     font-family: 'Roboto', 'Poppins';
 `;
 
@@ -16,7 +15,9 @@ const FooterConteudo = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
-    margin-bottom: 40px;
+    /*margin-bottom: 40px; */
+    margin: 0 auto 40px auto;
+    max-width: 1700px;
 `;
 
 const FooterColuna = styled.div`
@@ -27,19 +28,19 @@ const FooterColuna = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 100px;
+    width: 150px;
 `;
 
 const Descricao = styled.p`
-    font-size: 13px;
+    font-size: 18px;
     line-height: 1.6;
     color: #FFFFFF;
-    max-width: 200px;
+    max-width: 300px;
     margin: 0;
 `;
 
 const TituloColuna = styled.h4`
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
     margin: 0 0 5px 0;
     color: #ffffff;
@@ -48,7 +49,7 @@ const TituloColuna = styled.h4`
 const FooterLink = styled.a`
     color: #adb5bd;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 22px;
     transition: color 0.2s;
 
     &:hover {
@@ -62,7 +63,7 @@ const RedesSocias = styled.a`
     gap: 10px;
     color: #adb5bd;
     text-decorations: none;
-    font-size: 16px;
+    font-size: 22px;
     transition: color 0.2s;
 
     &:hover {
@@ -77,7 +78,7 @@ const Divisoria = styled.hr`
 
 const TextoCopyright = styled.p`
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: #ffffff;
     margin: 0;
 `;
