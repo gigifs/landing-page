@@ -101,13 +101,13 @@ const MenuHamburguer = styled.div`
 
 // Container para os botões que só aparecem no menu mobile
 const NavBotoesMobile = styled.div`
-  display: none; 
+  display: none; /* Escondido por padrão */
 
   @media (max-width: 768px) {
     display: flex; 
     flex-direction: row; 
     gap: 20px; 
-    margin-top: 60px; 
+    margin-top: 80px; 
   }
 `;
 
