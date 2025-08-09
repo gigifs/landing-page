@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Botao from "./Botao";
 import logoQuadrada from '../assets/logoQuadrada.svg';
@@ -131,22 +132,35 @@ const LogoInicio = styled.img`
     }
 `;
 
-function Inicio() {
-    return(
-        <InicioEstilizado>
+function Inicio({ onSignupClick }) {
+    // o hook useState é para o react redesenhar na tela sempre que a variavel mudar
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = (evento) => {
+        evento.preventDefault();
+        onCadastrarClick(email);
+    }
+
+    return (
+        <InicioEstilizado id='inicio'>
             <DetalhesBackground src={detalhes} alt="Detalhes de fundo" />
 
             <ConteudoInicio>
                 <ConteudoEsquerdo>
                     <Titulo>Crie projetos incríveis com o NEXO</Titulo>
                     <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
-                    <FormCadastro>
-                        <InputEmail type='email' placeholder='E-mail...'/>
-                        <Botao variant="CadastrarSecaoInicio">Cadastrar</Botao>
+                    <FormCadastro onSubmit={handleSubmit}>
+                        <InputEmail
+                            type='email'
+                            placeholder='E-mail...'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <Botao variant="CadastrarSecaoInicio" type='submit'>Cadastrar</Botao>
                     </FormCadastro>
                 </ConteudoEsquerdo>
 
-                <LogoInicio src={logoQuadrada} alt='Logo Nexo'/>
+                <LogoInicio src={logoQuadrada} alt='Logo Nexo' />
             </ConteudoInicio>
         </InicioEstilizado>
     );
