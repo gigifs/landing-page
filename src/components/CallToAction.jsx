@@ -38,13 +38,13 @@ const Subtitulo = styled.p`
     }
 `;
 
-function CallToAction() {
+function CallToAction({ onSignupClick }) {
     return (
         <CtaContainer>
             <Titulo>Conecte-se, colabore, conquiste. Sua jornada acadêmica fica mais forte com a comunidade Nexo</Titulo>
             <Subtitulo>Faça parte da nossa crescente comunidade.<br/>
             Descubra como milhares de alunos estão transformando ideias em realidade através da colaboração</Subtitulo>
-             <Botao variant="ComeceAgora">Comece Agora</Botao>
+             <Botao variant="ComeceAgora" onClick={onSignupClick}>Comece Agora</Botao>
         </CtaContainer>
     );
 }
