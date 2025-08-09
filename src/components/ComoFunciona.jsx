@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { FaUserPlus, FaSearch, FaUsers } from 'react-icons/fa'
-import { FiSearch } from "react-icons/fi";
 import { BolinhasContainer, Bolinha } from './Bolinhas.jsx';
 
 const SectionContainer = styled.section`
@@ -16,6 +15,10 @@ const Titulo = styled.h2`
     font-weight: 500;
     color: #000000;
     margin: 0 0 30px 0;
+
+    @media(max-width: 768px){
+        font-size: 40px;
+    }
 `;
 
 const SubTitulo = styled.p`
@@ -24,12 +27,22 @@ const SubTitulo = styled.p`
     max-width: 1620px;
     margin: 0 auto 48px auto; /* Centraliza o parágrafo e adiciona margem embaixo */
     line-height: 1.2;
+    padding: 0 10px 0 10px; /* Para não ficar colado nos cantos das telas */
+
+    @media(max-width: 768px){
+        font-size: 26px;
+    }
 `;
 
 const CardsContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: 60px; /* Espaço entre os cards */
+
+  @media (max-width: 768px) {
+    flex-direction: column; 
+    align-items: center; 
+  }
 `;
 
 const Card = styled.div`

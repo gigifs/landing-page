@@ -15,69 +15,120 @@ const DetalhesBackground = styled.img`
 
 const InicioEstilizado = styled.section`
     background-color: #F5FAFC;
-    background-image: url(${detalhes});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 80px 40px;
-    min-height: 60vh;    
-    box-shadow: 0 2px 4px #000000ff;
     position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 4px #d97ec8ff; /*tira??*/
+`;
+
+//nova const, por conta da responsividade
+const ConteudoInicio = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 40px;
+    min-height: 80vh;
+    max-width: 1700px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 40px;
+    position: relative; /* Garante que o conteúdo fique sobre a imagem de fundo */
+    z-index: 1;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 20px;
+        min-height: 60vh;
+    }
 `;
 
 const ConteudoEsquerdo = styled.div`
-    max-width: 550px;
-    position: relative;
-    z-index: 2;
+    flex: 1;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+        align-items: center;
+        max-width: 100%;
+    }
 `;
 
 const Titulo = styled.h1`
-    font-size: 44px;
+    font-size: 64px;
     font-weight: 800;
     color: #030214;
     margin-bottom: 2px;
     line-height: 1.2;
+
+    @media (max-width: 768px) {
+        font-size: 48px;
+    }
 `;
 
 const Subtitulo = styled.p`
-    font-size: 32px;
+    font-size: 52px;
     font-weight: 500;
     color: #030214;
     margin-bottom: 60px;
-    line-height: 18px;
+    line-height: 1; /*checar*/
+
+    @media (max-width: 768px) {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
 `;
 
 const FormCadastro = styled.div`
     display: flex;
     gap: 10px;
     align-items: center;
+    width: 100%;
+    max-width: 700px; /* Garante que não fique maior que o conteúdo esquerdo */
+
+    @media(max-width: 768px){
+      flex-direction: column;
+      width: 100%;
+      gap: 30px;
+    }
 `;
 
 const InputEmail = styled.input`
-    padding: 0 15px 0 15px;
-    font-size: 16px;
+    padding: 0 15px;
+    font-size: 24px;
     border: 1px solid #0A528ACC;
     border-radius: 50px;
-    width: 620px;
-    height: 40px;
+    width: 100%;
+    height: 60px;
     outline: none;
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
 
     &::placeholder {
         color: #0A528A;
     }
 
     &:focus {
-    border-color: #0A528ACC;
-    box-shadow: 0 0 0 2px #0A528ACC;
+        border-color: #0A528ACC;
+        box-shadow: 0 0 0 2px #0A528ACC;
     }
+
+    @media(max-width:768px){
+      font-size: 20px;
+      height: 45px; 
+    }
+
 `;
 
 const LogoInicio = styled.img`
-    max-width: 350px;
+    max-width: 500px;
+    height: auto;
     user-select: none;
+
+
+    @media(max-width: 768px){
+        display: none;
+    }
 `;
 
 function Inicio() {
@@ -85,16 +136,18 @@ function Inicio() {
         <InicioEstilizado>
             <DetalhesBackground src={detalhes} alt="Detalhes de fundo" />
 
-            <ConteudoEsquerdo>
-                <Titulo>Crie projetos incríveis com o NEXO</Titulo>
-                <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
-                <FormCadastro>
-                    <InputEmail type='email' placeholder='E-mail...'/>
-                    <Botao variant="CadastrarSecaoInicio">Cadastrar</Botao>
-                </FormCadastro>
-            </ConteudoEsquerdo>
+            <ConteudoInicio>
+                <ConteudoEsquerdo>
+                    <Titulo>Crie projetos incríveis com o NEXO</Titulo>
+                    <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
+                    <FormCadastro>
+                        <InputEmail type='email' placeholder='E-mail...'/>
+                        <Botao variant="CadastrarSecaoInicio">Cadastrar</Botao>
+                    </FormCadastro>
+                </ConteudoEsquerdo>
 
-            <LogoInicio src={logoQuadrada} alt='Logo Nexo'/>
+                <LogoInicio src={logoQuadrada} alt='Logo Nexo'/>
+            </ConteudoInicio>
         </InicioEstilizado>
     );
 }

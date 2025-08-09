@@ -10,6 +10,10 @@ const SectionContainer = styled.section`
     text-align: center;
     max-width: 1700px;
     scroll-margin-top: 80px;
+
+    @media (max-width: 768px) {
+      padding: 20px 20px 40px 20px;
+    }
 `;
 
 const Titulo = styled.h2`
@@ -18,6 +22,10 @@ const Titulo = styled.h2`
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+      font-size: 44px;
+    }
 `;
 
 const Paragrafo = styled.p`
@@ -27,6 +35,10 @@ const Paragrafo = styled.p`
   max-width: 1500px;
   margin: 0 auto; /* Centraliza o parágrafo */
   line-height: 1.4;
+
+  @media (max-width: 768px) {
+      font-size: 24px;
+    }
 `;
 
 function SobreNos() {

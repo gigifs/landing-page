@@ -20,6 +20,10 @@ const Titulo = styled.h2`
     max-width: 1400px; 
     line-height: 1.2;
     margin: 0;
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
 `;
 
 const Subtitulo = styled.p`
@@ -28,6 +32,10 @@ const Subtitulo = styled.p`
   max-width: 1270px;
   line-height: 1.2;
   margin: 0;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
 `;
 
 function CallToAction() {
