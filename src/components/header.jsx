@@ -111,7 +111,7 @@ const NavBotoesMobile = styled.div`
   }
 `;
 
-function Header(){
+function Header({ onLoginClick, onSignupClick }){
     const [menuAberto, setMenuAberto] = useState(false);
     const toggleMenu = () => {
         setMenuAberto(!menuAberto);
@@ -129,13 +129,15 @@ function Header(){
                     <li><LinkEstilizado href="#contatos" onClick={toggleMenu}>Contatos</LinkEstilizado></li>
                 </ListaLinks>
                 <NavBotoesMobile>
-                    <Botao variant="EntrarMenuHamburguer">Entrar</Botao>
-                    <Botao variant="CadastrarMenuHamburguer">Cadastre-se</Botao>
+                    <Botao variant="EntrarMenuHamburguer" onClick={onLoginClick}>Entrar</Botao>
+                    <Botao variant="CadastrarMenuHamburguer" onClick={onSignupClick}>Cadastre-se</Botao>
                 </NavBotoesMobile>
             </NavLinks>
             <NavBotoes>
-                <Botao variant="Entrar">Entrar</Botao>
-                <Botao variant="Cadastrar">Cadastre-se</Botao>
+                {/* O evento de clique é conectado diretamente com
+                    as funções que o header recebeu como propriedade */}
+                <Botao variant="Entrar" onClick={onLoginClick}>Entrar</Botao>
+                <Botao variant="Cadastrar" onClick={onSignupClick}>Cadastre-se</Botao>
             </NavBotoes>
             <MenuHamburguer onClick={toggleMenu}>
                 {menuAberto ? <FiX size={30} color='#0A528A'/> : <FiMenu size={30} color="#0A528A" />}

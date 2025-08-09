@@ -1,22 +1,16 @@
-import Botao from './components/Botao.jsx'
-import Header from './components/header.jsx'
-import ComoFunciona from './components/ComoFunciona.jsx'
-import CallToAction from './components/CallToAction.jsx'
-import SobreNos from './components/SobreNos.jsx'
-import Inicio from './components/Inicio.jsx'
-import Footer from './components/Footer.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage.jsx';
 
 function App() {
   return (
-    <div>
-      <Header/>
-      <Inicio/>
-      <ComoFunciona/>
-      <CallToAction/>
-      <SobreNos/>
-      <Footer/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* rota principal */}
+        <Route path="/" element={<LandingPage />} />
+        {/* no futuro, adicionaremos outras rotas aqui */}
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

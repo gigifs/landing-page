@@ -91,17 +91,17 @@ function ComoFunciona(){
                 É possível criar um projeto e candidatar-se a projetos já existentes. Além disso, a plataforma oferece recursos de chat interno.
             </SubTitulo>
             <CardsContainer>
-                <Card shadowRgb="215,87,180">
+                <Card $shadowRgb="215,87,180">
                     <IconContainer color='#D757B4'><FaUserPlus size={45}/></IconContainer>
                     <CardTitulo>Crie seu perfil</CardTitulo>
                     <CardTexto>Cadastre-se com seu email universitário, adicione suas habilidades e interesses para encontrar matches perfeitos.</CardTexto>
                 </Card>
-                <Card shadowRgb="107,116,219">
+                <Card $shadowRgb="107,116,219">
                     <IconContainer color='#6B74DB'><FaSearch size={45} /></IconContainer>
                     <CardTitulo>Encontre projetos ou pessoas</CardTitulo>
                     <CardTexto>Busque por projetos que combinam com suas habilidades ou encontre colaboradores para seu próprio projeto.</CardTexto>
                 </Card>
-                <Card shadowRgb="44,138,237">
+                <Card $shadowRgb="44,138,237">
                     <IconContainer color='#2C8AED'><FaUsers size={45} /></IconContainer>
                     <CardTitulo>Conecte-se e colabore</CardTitulo>
                     <CardTexto>Entre em contato, converse e comece a colaborar em projetos acadêmicos que fazem a diferença</CardTexto>
