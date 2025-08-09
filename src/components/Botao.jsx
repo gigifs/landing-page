@@ -79,13 +79,12 @@ const BotaoEstilizado = styled.button`
         return css`
           background-color: #0A528A1A; 
           color: #0A528A; 
-          border: 2px solid #0A528A;
-          height: 60px;
-          padding: 8px 20px;
+          border: 1px solid #0A528A;
+          height: 45px;
 
           &:hover {
-            background-color: #0A528A; 
-            color: #F5FAFC;
+          background-color: #0A528A; 
+          color: #F5FAFC;
           }
         `;
       case 'Cadastrar':
@@ -98,19 +97,6 @@ const BotaoEstilizado = styled.button`
           background-color: #7C2256; /* Fundo padrão */
           color: #F5FAFC; /* Texto branco */
 
-          }
-        `;
-      case 'Modal':
-        return css`
-          background-color: #7C2256; 
-          color: #F5FAFC;
-          border-radius: 10px;
-          padding: 8px 50px;
-          font-size: 18px;
-          font-weight: 400;
-
-          &:hover {
-          background-color: #661745ff;
           }
         `;
       case 'Entrar':

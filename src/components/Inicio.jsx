@@ -2,6 +2,17 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Botao from "./Botao";
 import logoQuadrada from '../assets/logoQuadrada.svg';
+import detalhes from '../assets/detalhes.svg';
+
+const DetalhesBackground = styled.img`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+`;
 
 const InicioEstilizado = styled.section`
     background-color: #F5FAFC;
@@ -49,7 +60,7 @@ const Titulo = styled.h1`
     font-size: 64px;
     font-weight: 800;
     color: #030214;
-    margin: 0;
+    margin-bottom: 2px;
     line-height: 1.2;
 
     @media (max-width: 768px) {
@@ -70,7 +81,7 @@ const Subtitulo = styled.p`
     }
 `;
 
-const FormContainer = styled.form`
+const FormCadastro = styled.div`
     display: flex;
     gap: 10px;
     align-items: center;
@@ -95,7 +106,7 @@ const InputEmail = styled.input`
     box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
 
     &::placeholder {
-        color: #0A528ACC;
+        color: #0A528A;
     }
 
     &:focus {

@@ -53,11 +53,11 @@ const Card = styled.div`
     text-align: left;
     transition: transform 0.3s;
 
-    box-shadow: 0 6px 12px rgba(${(props) => props.$shadowRgb || '0,0,0'}, 0.5);
+    box-shadow: 0 6px 12px rgba(${(props) => props.shadowRgb || '0,0,0'}, 0.5);
 
     &:hover {
     transform: translateY(-5px); /* Efeito de "levantar" o card ao passar o mouse */
-    box-shadow: 0 8px 14px rgba(${(props) => props.$shadowRgb || '0,0,0'}, 0.7);
+    box-shadow: 0 8px 14px rgba(${(props) => props.shadowRgb || '0,0,0'}, 0.7);
     }
 `;
 

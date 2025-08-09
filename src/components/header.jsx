@@ -13,15 +13,11 @@ const HeaderEstilizado = styled.header`
     box-shadow: 0 3px 6px rgba(124, 34, 86, 0.45);
     position: sticky;
     top: 0; 
-<<<<<<< HEAD
-    z-index: 30;
-=======
     z-index: 10;
 
     @media(max-width: 768px){
         padding: 8px 20px;
     }
->>>>>>> 7b7094a0e1b6c3d4148bace731cfa5c496f75da0
 `;
 
 const NavBotoes = styled.nav`
@@ -93,11 +89,6 @@ const LinkEstilizado = styled.a`
     }
 `;
 
-<<<<<<< HEAD
-// O componente abaixo está recendo duas propriedades
-function Header({ onLoginClick, onSignupClick }) {
-    return (
-=======
 const MenuHamburguer = styled.div`
     display: none;
     z-index: 11;
@@ -127,23 +118,15 @@ function Header({ onLoginClick, onSignupClick }){
     };
 
     return(
->>>>>>> 7b7094a0e1b6c3d4148bace731cfa5c496f75da0
         <HeaderEstilizado>
             <Logo src={logoNexo} alt="Logo da empresa Nexo" />
 
             <NavLinks $menuAberto = {menuAberto}>
                 <ListaLinks>
-<<<<<<< HEAD
-                    <li><LinkEstilizado href="#inicio">Início</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#como-funciona">Como Funciona</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#sobre-nos">Sobre nós</LinkEstilizado></li>
-                    <li><LinkEstilizado href="#contatos">Contatos</LinkEstilizado></li>
-=======
                     <li><LinkEstilizado href="#inicio" onClick={toggleMenu}>Início</LinkEstilizado></li>
                     <li><LinkEstilizado href="#como-funciona" onClick={toggleMenu}>Como Funciona</LinkEstilizado></li>
                     <li><LinkEstilizado href="#sobre-nos" onClick={toggleMenu}>Sobre nós</LinkEstilizado></li>
                     <li><LinkEstilizado href="#contatos" onClick={toggleMenu}>Contatos</LinkEstilizado></li>
->>>>>>> 7b7094a0e1b6c3d4148bace731cfa5c496f75da0
                 </ListaLinks>
                 <NavBotoesMobile>
                     <Botao variant="EntrarMenuHamburguer" onClick={onLoginClick}>Entrar</Botao>
@@ -152,11 +135,7 @@ function Header({ onLoginClick, onSignupClick }){
             </NavLinks>
             <NavBotoes>
                 {/* O evento de clique é conectado diretamente com
-<<<<<<< HEAD
-                        as funções que o header recebeu como propriedade */}
-=======
                     as funções que o header recebeu como propriedade */}
->>>>>>> 7b7094a0e1b6c3d4148bace731cfa5c496f75da0
                 <Botao variant="Entrar" onClick={onLoginClick}>Entrar</Botao>
                 <Botao variant="Cadastrar" onClick={onSignupClick}>Cadastre-se</Botao>
             </NavBotoes>
@@ -164,7 +143,7 @@ function Header({ onLoginClick, onSignupClick }){
                 {menuAberto ? <FiX size={30} color='#0A528A'/> : <FiMenu size={30} color="#0A528A" />}
             </MenuHamburguer>
         </HeaderEstilizado>
-    );
+    )
 }
 
 export default Header;

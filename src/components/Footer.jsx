@@ -61,7 +61,7 @@ const RedesSocias = styled.a`
     align-items: center;
     gap: 10px;
     color: #adb5bd;
-    text-decoration: none;
+    text-decorations: none;
     font-size: 16px;
     transition: color 0.2s;
 
@@ -113,13 +113,13 @@ function Footer() {
 
                 <FooterColuna>
                     <TituloColuna>Redes Sociais</TituloColuna>
-                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
                         <FiLinkedin size={20}/> LinkedIn
                     </RedesSocias>
-                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
                         <FiInstagram size={20}/> Instagram
                     </RedesSocias>
-                    <RedesSocias href="#" target="_blank" rel="noopener noreferrer">
+                    <RedesSocias href="#" target="_blank" rel="noonpener noreferrer">
                         <FiFacebook size={20}/> Facebook
                     </RedesSocias>
                 </FooterColuna>
