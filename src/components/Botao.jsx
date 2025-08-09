@@ -15,6 +15,35 @@ const BotaoEstilizado = styled.button`
 
   ${(props) => {
     switch (props.variant) {
+
+      case 'CadastrarMenuHamburguer':
+        return css`
+          font-size: 24px;
+          padding: 10px 20px;
+          background-color: #0A528A;
+          color: #F5FAFC;;
+          border-color: #F5FAFC;
+
+          &:hover {
+            background-color: #3f87a34b;
+            color: #0A528A
+          }
+        `;
+
+      case 'EntrarMenuHamburguer':
+        return css`
+          font-size: 24px;
+          padding: 10px 20px;
+          background-color: #3f87a34b;
+          color: #0A528A;
+          border-color: #F5FAFC;
+
+          &:hover {
+            background-color: #0A528A;
+            color: #F5FAFC;
+          }
+        `;
+
       case 'ComeceAgora':
         return css`
           font-size: 30px;
