@@ -99,6 +99,18 @@ const MenuHamburguer = styled.div`
     }
 `;
 
+// Container para os botões que só aparecem no menu mobile
+const NavBotoesMobile = styled.div`
+  display: none; 
+
+  @media (max-width: 768px) {
+    display: flex; 
+    flex-direction: row; 
+    gap: 20px; 
+    margin-top: 60px; 
+  }
+`;
+
 function Header(){
     const [menuAberto, setMenuAberto] = useState(false);
     const toggleMenu = () => {
@@ -116,6 +128,10 @@ function Header(){
                     <li><LinkEstilizado href="#sobre-nos" onClick={toggleMenu}>Sobre nós</LinkEstilizado></li>
                     <li><LinkEstilizado href="#contatos" onClick={toggleMenu}>Contatos</LinkEstilizado></li>
                 </ListaLinks>
+                <NavBotoesMobile>
+                    <Botao variant="EntrarMenuHamburguer">Entrar</Botao>
+                    <Botao variant="CadastrarMenuHamburguer">Cadastre-se</Botao>
+                </NavBotoesMobile>
             </NavLinks>
             <NavBotoes>
                 <Botao variant="Entrar">Entrar</Botao>
