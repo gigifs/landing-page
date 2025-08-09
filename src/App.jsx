@@ -10,12 +10,10 @@ function App() {
   return (
     <div>
       <Header/>
-      <main>
-        <Inicio/>
-        <ComoFunciona/>
-        <CallToAction/>
-        <SobreNos/>
-      </main>
+      <Inicio/>
+      <ComoFunciona/>
+      <CallToAction/>
+      <SobreNos/>
       <Footer/>
     </div>
   )

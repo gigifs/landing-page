@@ -11,6 +11,7 @@ const BotaoEstilizado = styled.button`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border: 2px solid transparent;
+  font-family: inherit; /*fonte roboto */
 
   ${(props) => {
     switch (props.variant) {
@@ -25,6 +26,10 @@ const BotaoEstilizado = styled.button`
           &:hover {
             background-color: rgba(255, 255, 255, 0.4);
           }
+
+          @media (max-width: 768px) {
+            font-size: 26px;
+          }
         `;
 
       case 'CadastrarSecaoInicio':
@@ -32,8 +37,7 @@ const BotaoEstilizado = styled.button`
           background-color: #0A528A1A; 
           color: #0A528A; 
           border: 1px solid #0A528A;
-          height: 60px;
-          font-size: 24px;
+          height: 45px;
 
           &:hover {
           background-color: #0A528A; 
