@@ -223,4 +223,8 @@ function FormularioLogin({ onSwitchToSignup, onSuccess  }) {
   );
 }
 
+<<<<<<< HEAD
 export default FormularioLogin;
+=======
+export default FormularioLogin;
+>>>>>>> 7b7094a0e1b6c3d4148bace731cfa5c496f75da0

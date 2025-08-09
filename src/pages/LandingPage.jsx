@@ -46,7 +46,7 @@ function LandingPage() {
                 }}
             />
             {/* recebe função para lidar com o form */}
-            <Inicio onCadastrarClick={handleHeroSignup} />
+            <Inicio onSignupClick={handleHeroSignup}/>
             <ComoFunciona />
             {/* tambem pode abrir o modal cadastro */}
             <CallToAction

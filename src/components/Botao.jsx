@@ -11,10 +11,53 @@ const BotaoEstilizado = styled.button`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border: 2px solid transparent;
-  font-family: inherit;
+  font-family: inherit; /*fonte roboto */
 
   ${(props) => {
     switch (props.$variant) {
+
+      case 'Modal':
+        return css`
+          background-color: #7C2256; 
+          color: #F5FAFC;
+          border-radius: 10px;
+          padding: 8px 50px;
+          font-size: 18px;
+          font-weight: 400;
+
+          &:hover {
+          background-color: #661745ff;
+          }
+        `;
+
+      case 'CadastrarMenuHamburguer':
+        return css`
+          font-size: 24px;
+          padding: 10px 20px;
+          background-color: #0A528A;
+          color: #F5FAFC;;
+          border-color: #F5FAFC;
+
+          &:hover {
+            background-color: #3f87a34b;
+            color: #0A528A
+          }
+        `;
+
+      case 'EntrarMenuHamburguer':
+        return css`
+          font-size: 24px;
+          padding: 10px 20px;
+          background-color: #3f87a34b;
+          color: #0A528A;
+          border-color: #F5FAFC;
+
+          &:hover {
+            background-color: #0A528A;
+            color: #F5FAFC;
+          }
+        `;
+
       case 'ComeceAgora':
         return css`
           font-size: 30px;
@@ -25,6 +68,10 @@ const BotaoEstilizado = styled.button`
 
           &:hover {
             background-color: rgba(255, 255, 255, 0.4);
+          }
+
+          @media (max-width: 768px) {
+            font-size: 26px;
           }
         `;
 
@@ -90,5 +137,6 @@ function Botao({ variant, children, ...outrasProps }) {
     </BotaoEstilizado>
   );
 }
+
 
 export default Botao;

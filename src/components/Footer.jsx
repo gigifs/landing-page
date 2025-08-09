@@ -95,9 +95,9 @@ function Footer() {
 
                 <FooterColuna>
                     <TituloColuna>Navegação</TituloColuna> 
-                    <FooterLink href="#">Início</FooterLink>
-                    <FooterLink href="#">Como Funciona</FooterLink>
-                    <FooterLink href="#">Sobre nós</FooterLink>
+                    <FooterLink href="#inicio">Início</FooterLink>
+                    <FooterLink href="#como-funciona">Como Funciona</FooterLink>
+                    <FooterLink href="#sobre-nos">Sobre nós</FooterLink>
                 </FooterColuna>
 
                 <FooterColuna>

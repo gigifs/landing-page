@@ -3,28 +3,46 @@ import styled, { css } from 'styled-components';
 import Botao from "./Botao";
 import logoQuadrada from '../assets/logoQuadrada.svg';
 
-const InicioContainer = styled.section`
-    display: flex;
-    align-items: center;
-    justify-content: space-around; /* distribui em colunas */
-    padding: 160px 60px 160px 0; /* vertical e horizontal */
+const InicioEstilizado = styled.section`
     background-color: #F5FAFC;
-    box-shadow: 0 1px 5px rgba(10, 82, 138, 0.45);
     position: relative;
-    z-index: 20;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 4px #d97ec8ff; /*tira??*/
+`;
+
+//nova const, por conta da responsividade
+const ConteudoInicio = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 40px;
+    min-height: 80vh;
+    max-width: 1700px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 40px;
+    position: relative; /* Garante que o conteúdo fique sobre a imagem de fundo */
+    z-index: 1;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 20px;
+        min-height: 60vh;
+    }
 `;
 
 const ConteudoEsquerdo = styled.div`
+    flex: 1;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    max-width: 795px;
-`;
 
-const ConteudoDireita = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @media (max-width: 768px) {
+        align-items: center;
+        max-width: 100%;
+    }
 `;
 
 const Titulo = styled.h1`
@@ -34,8 +52,8 @@ const Titulo = styled.h1`
     margin: 0;
     line-height: 1.2;
 
-    strong {
-        font-weight: 900; /* Deixa "NEXO" ainda mais destacado */
+    @media (max-width: 768px) {
+        font-size: 48px;
     }
 `;
 
@@ -43,75 +61,97 @@ const Subtitulo = styled.p`
     font-size: 52px;
     font-weight: 500;
     color: #030214;
-    margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+    line-height: 1; /*checar*/
+
+    @media (max-width: 768px) {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
 `;
 
 const FormContainer = styled.form`
     display: flex;
-    gap: 30px;
-    margin-top: 20px;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    max-width: 700px; /* Garante que não fique maior que o conteúdo esquerdo */
+
+    @media(max-width: 768px){
+      flex-direction: column;
+      width: 100%;
+      gap: 30px;
+    }
 `;
 
 const InputEmail = styled.input`
-    background-color: #F5FAFC;
-    padding: 8px 20px;
-    font-size: 22px;
-    font-weight: 500;
-    color: #0A528A;
-    border: 2px solid #0A528ACC;
+    padding: 0 15px;
+    font-size: 24px;
+    border: 1px solid #0A528ACC;
     border-radius: 50px;
-    width: 620px;
-    height: 40px;
+    width: 100%;
+    height: 60px;
     outline: none;
-    font-family: inherit;
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
 
     &::placeholder {
         color: #0A528ACC;
     }
 
     &:focus {
-        order-color: #5B82E9; 
-        box-shadow: 0 0 0 3px #5b82e948;
+        border-color: #0A528ACC;
+        box-shadow: 0 0 0 2px #0A528ACC;
     }
+
+    @media(max-width:768px){
+      font-size: 20px;
+      height: 45px; 
+    }
+
 `;
 
 const LogoInicio = styled.img`
     max-width: 500px;
     height: auto;
+    user-select: none;
+
+
+    @media(max-width: 768px){
+        display: none;
+    }
 `;
 
-function Inicio({ onCadastrarClick }) {
-
+function Inicio({ onSignupClick }) {
     // o hook useState é para o react redesenhar na tela sempre que a variavel mudar
     const [email, setEmail] = useState('');
 
     const handleSubmit = (evento) => {
         evento.preventDefault();
-        onCadastrarClick(email);
+        onSignupClick(email);
     }
 
     return (
-        <InicioContainer id='inicio'>
-            <ConteudoEsquerdo>
-                <Titulo>
-                    Crie projetos incríveis com o <strong>NEXO</strong>
-                </Titulo>
-                <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
-                <FormContainer onSubmit={handleSubmit}>
-                    <InputEmail
-                        type='email'
-                        placeholder='E-mail'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Botao variant="CadastrarSecaoInicio" type='submit'>Cadastrar</Botao>
-                </FormContainer>
-            </ConteudoEsquerdo>
-            <ConteudoDireita>
+        <InicioEstilizado id='inicio'>
+            <DetalhesBackground src={detalhes} alt="Detalhes de fundo" />
+
+            <ConteudoInicio>
+                <ConteudoEsquerdo>
+                    <Titulo>Crie projetos incríveis com o NEXO</Titulo>
+                    <Subtitulo>Conecte-se, colabore, conquiste.</Subtitulo>
+                    <FormCadastro onSubmit={handleSubmit}>
+                        <InputEmail
+                            type='email'
+                            placeholder='E-mail...'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <Botao variant="CadastrarSecaoInicio" type='submit'>Cadastrar</Botao>
+                    </FormCadastro>
+                </ConteudoEsquerdo>
+
                 <LogoInicio src={logoQuadrada} alt='Logo Nexo' />
-            </ConteudoDireita>
-        </InicioContainer>
+            </ConteudoInicio>
+        </InicioEstilizado>
     );
 }
 
