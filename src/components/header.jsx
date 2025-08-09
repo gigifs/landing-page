@@ -107,7 +107,7 @@ const NavBotoesMobile = styled.div`
     display: flex; 
     flex-direction: row; 
     gap: 20px; 
-    margin-top: 60px; 
+    margin-top: 80px; 
   }
 `;
 
