@@ -1,58 +1,62 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../firebase'; // 1. Importamos nosso 'db' do Firestore
-import { doc, getDoc } from 'firebase/firestore'; // 2. Importamos as ferramentas para ler dados
+import React, { createContext, useState, useEffect, useContext } from 'react'; // importante: useEffect é para interagir com sistemas externos - Firebase
+import { onAuthStateChanged } from 'firebase/auth'; // função de autenticação em tempo real
+import { auth, db } from '../firebase'; // aqui sao as instancias de autenticação e banco de dados
+import { doc, getDoc } from 'firebase/firestore'; // ferramentas que leem dados para o firebase
 
-// 1. Criamos o "Contexto"
+// a criação do contexto, como um armazém de dados ainda vazio
 const AuthContext = createContext();
 
-// 2. Criamos um "hook" customizado para facilitar o uso do contexto
+// aqui é um hook customizado para facilitar o uso
+// segundo o gemini é um padrão profissional invés de importar useContext e AuthContext em todo componente
 export function useAuth() {
   return useContext(AuthContext);
 }
 
-// 3. Criamos o "Provedor" do contexto. É um componente que vai "abraçar" nosso app
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userData, setUserData] = useState(null); // 3. NOVO ESTADO para guardar os dados do perfil
-  const [loading, setLoading] = useState(true);
+// componente provedor, responsavel por gerenciar a logica e dar os dados para o nosso contexto
+export function AuthProvider({ children }) { // children significa qualquer componente ou código sera abraçado
+  const [currentUser, setCurrentUser] = useState(null); // guarda uid, email e verificação do email
+  const [userData, setUserData] = useState(null); // guarda dados do perfil
+  const [loading, setLoading] = useState(true); // estado de carregamento para evitar que a tela pisque conteudo errado
 
-  // 4. O "ouvinte" do Firebase que atualiza o usuário em tempo real
+  // é o hook que atualiza a tela em real
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async user => {
-      setCurrentUser(user);
+    //instala um "ouvinte" que dispara a função sempre que o estado de login mudar
+    const unsubscribe = onAuthStateChanged(auth, async user => { // async significa que vamos buscar dados no banco
+      setCurrentUser(user); //atualiza o estado com a informação do banco em user(ou um usuario ou null)
 
-      // 4. LÓGICA PARA BUSCAR DADOS DO PERFIL
-      if (user) {
-        // Se um usuário está logado, busca seu documento no Firestore
+      // logica para buscar dados do perfil
+      if (user) { // Se um usuário está logado
+        // cria uma referencia ao documento do usuario usando o UID para encontra-lo na coleçao
         const userDocRef = doc(db, "users", user.uid);
+        // faz uma copia do documento
         const userDocSnap = await getDoc(userDocRef);
 
-        if (userDocSnap.exists()) {
-          // Se o documento existe, guarda os dados no nosso novo estado
+        if (userDocSnap.exists()) { // Se o documento existe
+          // guarda os dados nesse novo estado
           setUserData(userDocSnap.data());
         } else {
-          console.log("Não foi encontrado um perfil para este usuário no Firestore.");
+          // se o documento nao foi encontrado, o estado é limpo
           setUserData(null);
         }
       } else {
-        // Se não há usuário, limpa os dados do perfil
+        // se não há usuário, o estado é limpo
         setUserData(null);
       }
 
-      setLoading(false);
+      setLoading(false); // nessa altura ja temos uma resposta definitiva do status do usuario, por isso false
     });
 
-    return unsubscribe; // Limpa o ouvinte quando o componente desmonta
-  }, []);
+    return unsubscribe; // limpa o ouvinte quando ele for removido da tela, previne vazamento de memoria
+  }, []); // [] = garante que o trecho so seja executado uma vez
 
-  // 5. O valor que será compartilhado com toda a aplicação
+  // cria um objeto e agrupa todos os dados que vamos compartilhar com o resto da aplicação
   const value = {
     currentUser,
     userData
   };
 
-  // Se ainda estiver carregando, não mostra o app. Evita "piscar" a tela.
+  // se nao estiver carregando, mostra o resto da aplicação. evita a tela piscar
+  // finalmente ele passa o objeto para o nosso contexto
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

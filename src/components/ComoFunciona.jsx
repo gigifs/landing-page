@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { FaUserPlus, FaSearch, FaUsers } from 'react-icons/fa'
-import { FiSearch } from "react-icons/fi";
 import { BolinhasContainer, Bolinha } from './Bolinhas.jsx';
 
 const SectionContainer = styled.section`

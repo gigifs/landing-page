@@ -83,6 +83,7 @@ const LogoInicio = styled.img`
 
 function Inicio({ onCadastrarClick }) {
 
+    // o hook useState é para o react redesenhar na tela sempre que a variavel mudar
     const [email, setEmail] = useState('');
 
     const handleSubmit = (evento) => {

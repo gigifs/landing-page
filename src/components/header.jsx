@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components';
 import Botao from './Botao.jsx';
 import logoNexo from '../assets/logo.svg';
-// 1. IMPORTAMOS AS FERRAMENTAS NECESSÁRIAS
-import { useAuth } from '../contexts/AuthContext.jsx';
-import { auth } from '../firebase.js';
-import { signOut } from 'firebase/auth';
 
 const HeaderEstilizado = styled.header`
     display: flex;
@@ -54,21 +50,8 @@ const LinkEstilizado = styled.a`
 `;
 
 // O componente abaixo está recendo duas propriedades
-function Header({ onLoginClick, onSignupClick }){
-    // 2. USAMOS NOSSO "CÉREBRO" PARA SABER QUEM É O USUÁRIO ATUAL
-    const { currentUser, userData } = useAuth();
-
-    // 3. FUNÇÃO PARA FAZER LOGOUT
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            // O logout será detectado automaticamente pelo onAuthStateChanged no AuthContext
-        } catch (error) {
-            console.error("Erro ao fazer logout:", error);
-        }
-    };
-
-    return(
+function Header({ onLoginClick, onSignupClick }) {
+    return (
         <HeaderEstilizado>
             <Logo src={logoNexo} alt="Logo da empresa Nexo" />
 
@@ -81,22 +64,10 @@ function Header({ onLoginClick, onSignupClick }){
                 </ListaLinks>
             </NavLinks>
             <NavBotoes>
-                { currentUser && currentUser.emailVerified ? (
-                    // Se EXISTE um usuário logado, mostra o e-mail e o botão de Sair
-                    <>
-                        <span style={{ alignSelf: 'center', fontWeight: '500' }}>
-                            Olá, {userData ? userData.nome : currentUser.email}
-                            </span>
-                        <Botao variant="Cadastrar" onClick={handleLogout}>Sair</Botao>
-                    </>
-                ) : (
-                    <>
-                    {/* O evento de clique é conectado diretamente com
+                {/* O evento de clique é conectado diretamente com
                         as funções que o header recebeu como propriedade */}
-                    <Botao variant="Entrar" onClick={onLoginClick}>Entrar</Botao>
-                    <Botao variant="Cadastrar" onClick={onSignupClick}>Cadastre-se</Botao>
-                    </>
-                )}
+                <Botao variant="Entrar" onClick={onLoginClick}>Entrar</Botao>
+                <Botao variant="Cadastrar" onClick={onSignupClick}>Cadastre-se</Botao>
             </NavBotoes>
         </HeaderEstilizado>
     );

@@ -160,25 +160,27 @@ function FormularioCadastro({ onSwitchToLogin, initialEmail, onSuccess  }) {
 
         //firebase a partir daqui
         try {
+            // a função é o que pega o email e senha e tenta criar um usuario
             //usar o await para esperar a resposta do Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
 
             //Se o cadastro deu certo
             const user = userCredential.user;
 
-            // 👇 2. A NOVA PARTE PARA SALVAR NO BANCO DE DADOS
-            // Criamos uma referência para um novo "documento" na "coleção" 'users'
-            // O nome/ID do documento será o ID único do usuário (user.uid)
+            // aqui é a conexão com o firestore
+            // estamos criando uma referencia para um local no banco de dados
+            // db = banco de dados; users = uma coleção; user.uid = identificador unico
             await setDoc(doc(db, "users", user.uid), {
               nome: nome,
               sobrenome: sobrenome,
-              email: user.email // Salva o email também no perfil para facilitar
+              email: user.email // salvar email pra facilitar identificação
             });
 
             const actionCodeSettings = {
-                url: 'http://localhost:5173', // URL para redirecionar após verificação
+                url: 'http://localhost:5173', // define onde o usuario vai parar apos clicar no link de confirmação
             };
 
+            // função para garantir que o usuario é real, envia um email automatico
             await sendEmailVerification(user, actionCodeSettings);
 
             await signOut(auth);
