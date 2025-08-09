@@ -138,7 +138,7 @@ function Inicio({ onSignupClick }) {
 
     const handleSubmit = (evento) => {
         evento.preventDefault();
-        onCadastrarClick(email);
+        onSignupClick(email);
     }
 
     return (
